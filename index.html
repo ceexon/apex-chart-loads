@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apex charts data adding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <body class="p-4">
+    <div x-data="charting">
+      <div class="sticky top-0 bg-white z-20 p-4">
+        <div class="flex gap-2 items-end justify-between">
+          <h1 class="text-3xl font-bold huge data" x-text="title"></h1>
+
+          <div>
+            Animations
+            <div
+              class="relative rounded-full w-12 h-6 transition duration-200 ease-linear"
+              :class="[animations ? 'bg-green-400' : 'bg-gray-400', isLoading ? 'pointer-events-none opacity-50' : '']"
+            >
+              <label
+                for="toggle"
+                class="absolute left-0 bg-white border-2 mb-2 w-6 h-6 rounded-full transition transform duration-100 ease-linear cursor-pointer"
+                :class="[animations ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400']"
+              ></label>
+              <input
+                type="checkbox"
+                id="toggle"
+                name="toggle"
+                class="appearance-none w-full h-full active:outline-none focus:outline-none"
+                @click="animations = !animations"
+              />
+            </div>
+          </div>
+
+            <div  x-show="type !== 'bulk'">
+              Multiple
+              <div
+                class="relative rounded-full w-12 h-6 transition duration-200 ease-linear"
+                :class="[multiple ? 'bg-green-400' : 'bg-gray-400', isLoading ? 'pointer-events-none opacity-50' : '']"
+              >
+                <label
+                  for="toggle"
+                  class="absolute left-0 bg-white border-2 mb-2 w-6 h-6 rounded-full transition transform duration-100 ease-linear cursor-pointer"
+                  :class="[multiple ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400']"
+                ></label>
+                <input
+                  type="checkbox"
+                  id="toggle"
+                  name="toggle"
+                  class="appearance-none w-full h-full active:outline-none focus:outline-none"
+                  @click="multiple = !multiple"
+                />
+              </div>
+            </div>
+
+          <button
+            type="button"
+            class="bg-indigo-700 text-white py-2 px-4 text-base font-semibold rounded-lg"
+            :class="[isLoading ? 'pointer-events-none opacity-50' : '']"
+            :disabled="isLoading"
+            x-text="type === 'bulk' ? 'Async Load' : 'Sync Load'"
+            @click="type = type === 'bulk' ? 'async' : 'bulk'"
+          ></button>
+        </div>
+
+        <div class="flex flex-col space-y-1 mt-3">
+          <div x-show="mountDuration" class="flex">
+            <p class="pr-2">Mount Time:</p>
+            <p x-text="mountDuration || '...'"></p>
+          </div>
+          <div x-show="duration" class="flex">
+            <p class="pr-2">Total Time:</p>
+            <p x-text="duration || '...'"></p>
+          </div>
+        </div>
+      </div>
+      <template>
+        <section id="chart-section">
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+          <div class="p-6 min-h-max h-auto rounded-full border-gray-300">
+            <div class="chart"></div>
+          </div>
+        </section>
+      </template>
+      <div id="chart-wrapper" class="p-16"></div>
+    </div>
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
