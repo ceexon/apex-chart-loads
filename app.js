@@ -369,22 +369,19 @@ document.addEventListener("alpine:init", () => {
           height: 350,
           events: {
             animationEnd: (ctx) => {
-              if (
-                startIndex >= this.categories.length &&
-                ctx.el.id === this.lastId
-              ) {
-                this.isLoading = false;
-                performance.mark(`charts-end-mount`);
-                const p = performance.measure(
-                  "mount-end",
-                  `charts-start-mount`,
-                  `charts-end-mount`
-                );
-                performance.clearMarks("charts-start-mount");
-                performance.clearMarks(`charts-end-mount`);
-                this.duration = p.duration.toFixed(4) + "ms";
-                return;
-              } else if (startIndex >= this.categories.length) {
+              if (startIndex >= this.categories.length) {
+                if (ctx.el.id === this.lastId) {
+                  this.isLoading = false;
+                  performance.mark(`charts-end-mount`);
+                  const p = performance.measure(
+                    "mount-end",
+                    `charts-start-mount`,
+                    `charts-end-mount`
+                  );
+                  performance.clearMarks("charts-start-mount");
+                  performance.clearMarks(`charts-end-mount`);
+                  this.duration = p.duration.toFixed(4) + "ms";
+                }
                 return;
               }
 
